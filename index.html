@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#dffbf8">
+  <link rel="icon" href="data:,">
+  <title>磁力珠织图</title>
+  <link rel="stylesheet" href="styles.css?v=11">
+</head>
+<body>
+  <main id="app">
+    <canvas id="game" aria-label="磁力珠织图游戏区域"></canvas>
+    <header id="hud" class="hud" aria-hidden="true" inert>
+      <button id="levelSelectButton" class="level-pill" aria-label="选择关卡">关卡 <strong id="levelNumber">1</strong></button>
+      <div id="progressTrack" class="progress-track" role="progressbar" aria-label="收集进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+      <button id="menuButton" class="icon-button menu-icon-button" aria-label="打开游戏菜单">
+        <span class="menu-icon"><i></i><i></i><i></i></span>
+      </button>
+    </header>
+    <button id="polarityButton" class="polarity-button" aria-label="切换磁极" aria-pressed="false" aria-hidden="true" inert>
+      <strong>吸</strong><span>磁极</span>
+    </button>
+    <section id="startScreen" class="start-screen">
+      <div class="start-orbit" aria-hidden="true">
+        <span class="start-bead bead-a"></span>
+        <span class="start-bead bead-b"></span>
+        <span class="start-bead bead-c"></span>
+        <div class="start-magnet">⌁</div>
+      </div>
+      <div class="start-copy">
+        <p>MAGNETIC JELLY</p>
+        <h1>磁力珠织图</h1>
+        <span>牵引玻璃珠，拼出软软的果冻图案</span>
+      </div>
+      <div class="start-actions">
+        <button id="startButton" class="primary-button">开始游戏</button>
+        <button id="customModeButton" class="secondary-button">自定义模式</button>
+        <button id="startSettingsButton" class="secondary-button">设置</button>
+        <div class="start-meta">
+          <span id="startProgress">已完成 0 / 40</span>
+          <button id="startLevelButton" class="text-button">选择关卡</button>
+        </div>
+      </div>
+    </section>
+    <section id="settingsDialog" class="gallery settings-overlay" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" aria-hidden="true" inert>
+      <div class="gallery-card settings-card">
+        <div class="gallery-title">
+          <div>
+            <p>SETTINGS</p>
+            <h1 id="settingsTitle">游戏设置</h1>
+          </div>
+          <button id="closeSettings" class="close-button" aria-label="关闭设置">×</button>
+        </div>
+        <div class="setting-list settings-main-list">
+          <button id="settingsSoundToggle" class="setting-row" aria-pressed="true"><span><strong>音效</strong><small>游戏反馈与提示音</small></span><i class="toggle on" aria-hidden="true"></i></button>
+          <button id="settingsVibrationToggle" class="setting-row" aria-pressed="true"><span><strong>震动</strong><small>碰撞与吸附时震动</small></span><i class="toggle on" aria-hidden="true"></i></button>
+          <button id="hintsToggle" class="setting-row" aria-pressed="true"><span><strong>操作提示</strong><small>显示新机制教学提示</small></span><i class="toggle on" aria-hidden="true"></i></button>
+          <button id="reducedMotionToggle" class="setting-row" aria-pressed="false"><span><strong>减少动态效果</strong><small>减少界面动画与画面晃动</small></span><i class="toggle" aria-hidden="true"></i></button>
+        </div>
+        <div class="developer-panel">
+          <div class="developer-heading">
+            <div>
+              <strong>开发者模式</strong>
+              <small>解锁全部关卡，不改变通关记录</small>
+            </div>
+            <span id="developerBadge">未开启</span>
+          </div>
+          <div class="developer-controls">
+            <input id="developerPassword" type="password" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="输入密码" aria-label="开发者模式密码">
+            <button id="developerModeButton" type="button">开启</button>
+          </div>
+          <p id="developerMessage" class="settings-message" aria-live="polite"></p>
+        </div>
+        <button id="resetProgressButton" class="danger-button" type="button">重置游戏进度</button>
+      </div>
+    </section>
+    <section id="gameMenu" class="gallery menu-overlay" role="dialog" aria-modal="true" aria-labelledby="menuTitle" aria-hidden="true" inert>
+      <div class="gallery-card menu-card">
+        <div class="gallery-title">
+          <div>
+            <p>GAME MENU</p>
+            <h1 id="menuTitle">休息一下</h1>
+          </div>
+          <button id="closeMenu" class="close-button" aria-label="关闭游戏菜单">×</button>
+        </div>
+        <button id="resumeButton" class="primary-button compact">继续游戏</button>
+        <div class="menu-grid">
+          <button id="restartButton" class="menu-tile"><span>↻</span>重新开始</button>
+          <button id="menuLevelButton" class="menu-tile"><span>▦</span>选择关卡</button>
+          <button id="galleryButton" class="menu-tile"><span>◆</span>徽章墙</button>
+          <button id="homeButton" class="menu-tile"><span>⌂</span>返回首页</button>
+          <button id="customMenuButton" class="menu-tile menu-tile-wide"><span>✎</span>自定义关卡</button>
+        </div>
+        <div class="setting-list">
+          <button id="soundToggle" class="setting-row" aria-pressed="true"><span>音效</span><i class="toggle on" aria-hidden="true"></i></button>
+          <button id="vibrationToggle" class="setting-row" aria-pressed="true"><span>震动</span><i class="toggle on" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </section>
+    <section id="levelSelector" class="gallery" role="dialog" aria-modal="true" aria-labelledby="levelSelectorTitle" aria-hidden="true" inert>
+      <div class="gallery-card level-card">
+        <div class="gallery-title">
+          <div>
+            <p>SELECT LEVEL</p>
+            <h1 id="levelSelectorTitle">选择关卡</h1>
+          </div>
+          <button id="closeLevelSelector" class="close-button" aria-label="关闭关卡选择">×</button>
+        </div>
+        <div id="levelGrid" class="level-grid"></div>
+      </div>
+    </section>
+    <section id="gallery" class="gallery" role="dialog" aria-modal="true" aria-labelledby="galleryTitle" aria-hidden="true" inert>
+      <div class="gallery-card">
+        <div class="gallery-title">
+          <div>
+            <p>JELLY BADGES</p>
+            <h1 id="galleryTitle">果冻徽章墙</h1>
+          </div>
+          <button id="closeGallery" class="close-button" aria-label="关闭徽章墙">×</button>
+        </div>
+        <div id="badgeGrid" class="badge-grid"></div>
+      </div>
+    </section>
+    <section id="resultScreen" class="gallery result-overlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle" aria-hidden="true" inert>
+      <div class="gallery-card result-card">
+        <p class="result-kicker">LEVEL CLEAR</p>
+        <div id="resultIcon" class="result-icon" aria-hidden="true">●</div>
+        <h1 id="resultTitle">图案完成</h1>
+        <p id="resultMessage" class="result-message">新的果冻徽章已经收进徽章墙。</p>
+        <button id="nextLevelButton" class="primary-button">下一关</button>
+        <div class="result-actions">
+          <button id="resultRestartButton" class="text-button">再玩一次</button>
+          <button id="resultLevelButton" class="text-button">选择关卡</button>
+        </div>
+      </div>
+    </section>
+    <section id="customEditor" class="custom-editor" aria-labelledby="customEditorTitle" aria-hidden="true" inert>
+      <header class="editor-header">
+        <button id="closeCustomEditor" class="editor-icon-button" aria-label="关闭自定义模式">×</button>
+        <div>
+          <p>CUSTOM LEVEL</p>
+          <h1 id="customEditorTitle">自定义关卡</h1>
+        </div>
+        <button id="playCustomLevel" class="editor-play-button">试玩</button>
+      </header>
+      <div class="editor-board-wrap">
+        <canvas id="customCanvas" aria-label="自定义关卡编辑区域"></canvas>
+        <p id="customEditorHint" class="editor-hint">先选择工具，再点击画面摆放</p>
+      </div>
+      <div class="editor-options">
+        <label>场型
+          <select id="customTemplate">
+            <option value="classic">经典</option>
+            <option value="circle">中心圆环</option>
+            <option value="horizontal">左右穿梭</option>
+            <option value="inverted">上下倒置</option>
+            <option value="cross">十字轨道</option>
+          </select>
+        </label>
+        <button id="customPolarityToggle" class="editor-option-button" aria-pressed="false">磁极切换</button>
+        <button id="customDualToggle" class="editor-option-button" aria-pressed="false">双磁铁</button>
+        <button id="customMotionToggle" class="editor-option-button" aria-pressed="false">洞口运动</button>
+      </div>
+      <div id="customToolbox" class="editor-toolbox" aria-label="摆放工具">
+        <button class="editor-tool active" data-tool="target" data-color="0"><i style="--tool-color:#7b67eb"></i>紫色墙</button>
+        <button class="editor-tool" data-tool="target" data-color="1"><i style="--tool-color:#55d5cf"></i>青色墙</button>
+        <button class="editor-tool" data-tool="target" data-color="2"><i style="--tool-color:#f48abd"></i>粉色墙</button>
+        <button class="editor-tool" data-tool="target" data-color="3"><i style="--tool-color:#ffbd69"></i>橙色墙</button>
+        <button class="editor-tool" data-tool="hazard"><b>!</b>危险区</button>
+        <button class="editor-tool" data-tool="bumper"><b>↗</b>弹力圆</button>
+        <button class="editor-tool" data-tool="rotator"><b>—</b>旋转杆</button>
+        <button class="editor-tool" data-tool="wind"><b>↑</b>风场</button>
+        <button class="editor-tool" data-tool="gate"><b>↔</b>狭缝门</button>
+        <button class="editor-tool" data-tool="portal"><b>◎</b>传送门</button>
+        <button class="editor-tool" data-tool="erase"><b>⌫</b>橡皮擦</button>
+      </div>
+      <footer class="editor-footer">
+        <span id="customObjectCount">0 个果冻墙 · 0 个障碍</span>
+        <div>
+          <button id="undoCustomEdit" class="editor-action-button">撤销</button>
+          <button id="clearCustomEdit" class="editor-action-button danger">清空</button>
+        </div>
+      </footer>
+    </section>
+    <div id="rotateHint" class="rotate-hint">请竖屏游玩</div>
+  </main>
+  <script src="game.js?v=12"></script>
+</body>
+</html>
