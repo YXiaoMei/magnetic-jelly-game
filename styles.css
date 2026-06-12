@@ -15,6 +15,7 @@ html,
 body {
   width: 100%;
   height: 100%;
+  min-height: 100%;
   margin: 0;
   overflow: hidden;
   overscroll-behavior: none;
@@ -39,7 +40,10 @@ button:focus-visible {
 #app {
   position: relative;
   width: min(100vw, 500px);
+  height: 100vh;
+  height: -webkit-fill-available;
   height: 100dvh;
+  min-height: 100%;
   overflow: hidden;
   background: linear-gradient(180deg, #f5fffe 0%, #ddf9f6 62%, #c7edee 100%);
   box-shadow: 0 0 60px rgb(45 126 136 / 12%);

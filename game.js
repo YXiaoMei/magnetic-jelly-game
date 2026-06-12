@@ -487,6 +487,7 @@
 
   function resize() {
     const rect = canvas.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
     state.dpr = Math.min(2, window.devicePixelRatio || 1);
     state.width = rect.width;
     state.height = rect.height;
