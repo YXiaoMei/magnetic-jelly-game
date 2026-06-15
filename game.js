@@ -377,7 +377,7 @@
       { title: "排斥弯道", targets: sideTargets(8, 2, true), magnetConstraint: { type: "free", minX: 0.2, maxX: 0.8, minY: 0.28, maxY: 0.76 }, spawnZones: [{ type: "circle", cx: 0.5, cy: 0.72, radius: 0.08 }], polarity: true, hazards: [{ x: 0.5, y: 0.5, radius: 0.09, phase: 0, moving: false }] },
       { title: "镜像双星", targets: ringTargets(10, 2), magnetConstraint: { type: "circle", cx: 0.5, cy: 0.5, radius: 0.22 }, spawnZones: [{ type: "circle", cx: 0.5, cy: 0.5, radius: 0.08 }], dualMagnet: true, hint: "dual" },
       { title: "空间跃迁", targets: sideTargets(8, 2, true), magnetConstraint: { type: "free", minX: 0.22, maxX: 0.78, minY: 0.3, maxY: 0.75 }, spawnZones: [{ type: "circle", cx: 0.5, cy: 0.72, radius: 0.08 }], portals: [{ x: 0.3, y: 0.6, pair: 1, color: 0 }, { x: 0.7, y: 0.38, pair: 0, color: 1 }], hint: "portal" },
-      { title: "空间磁场", targets: ringTargets(12, 3), playfield: { type: "circle", cx: 0.5, cy: 0.5, radius: 0.41 }, magnetConstraint: { type: "ring", cx: 0.5, cy: 0.5, radiusX: 0.2, radiusY: 0.12 }, spawnZones: [{ type: "ring", cx: 0.5, cy: 0.5, radiusX: 0.09, radiusY: 0.045 }], targetMotion: { type: "orbit", cx: 0.5, cy: 0.5, speed: 0.18 }, polarity: true, dualMagnet: true, portals: [{ x: 0.27, y: 0.5, pair: 1, color: 0 }, { x: 0.73, y: 0.5, pair: 0, color: 1 }], hazards: [{ x: 0.5, y: 0.5, radius: 0.055, phase: 0, moving: false }], chapterFinale: true }
+      { title: "空间磁场", targets: ringTargets(12, 3), playfield: { type: "circle", cx: 0.5, cy: 0.5, radius: 0.41 }, magnetConstraint: { type: "ring", cx: 0.5, cy: 0.5, radiusX: 0.2, radiusY: 0.12 }, spawnZones: [{ type: "ring", cx: 0.5, cy: 0.5, radiusX: 0.13, radiusY: 0.075 }], targetMotion: { type: "orbit", cx: 0.5, cy: 0.5, speed: 0.18 }, polarity: true, dualMagnet: true, portals: [{ x: 0.27, y: 0.5, pair: 1, color: 0 }, { x: 0.73, y: 0.5, pair: 0, color: 1 }], hazards: [{ x: 0.5, y: 0.5, radius: 0.055, phase: 0, moving: false }], hazardGraceMs: 800, chapterFinale: true }
     ].map((level, offset) => ({
       ...defaults,
       ...level,
@@ -1915,10 +1915,12 @@
         }
       }
 
-      for (const hazard of hazardPositions) {
-        if (Math.hypot(bead.x - hazard.wx, bead.y - hazard.wy) < hazard.wr + bead.radius * 0.45) {
-          failLevel(bead.x, bead.y);
-          return;
+      if (now - state.startAt >= (state.level.hazardGraceMs || 0)) {
+        for (const hazard of hazardPositions) {
+          if (Math.hypot(bead.x - hazard.wx, bead.y - hazard.wy) < hazard.wr + bead.radius * 0.45) {
+            failLevel(bead.x, bead.y);
+            return;
+          }
         }
       }
     }
