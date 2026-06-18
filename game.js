@@ -251,7 +251,15 @@
 
   function applySkinToDom() {
     const skin = activeSkin();
-    document.body.style.background = `radial-gradient(circle at 50% 10%, #ffffff 0, ${skin.background[0]} 30%, ${skin.background[1]} 72%, ${skin.background[2]} 100%)`;
+    const pageBackground = `radial-gradient(circle at 50% 10%, #ffffff 0, ${skin.background[0]} 30%, ${skin.background[1]} 72%, ${skin.background[2]} 100%)`;
+    document.body.style.background = pageBackground;
+    document.getElementById("app")?.style.setProperty("background", `linear-gradient(180deg, ${skin.background[0]} 0%, ${skin.background[1]} 62%, ${skin.background[2]} 100%)`);
+    startScreen?.style.setProperty("background", pageBackground);
+    customEditor?.style.setProperty("background", `linear-gradient(180deg, ${skin.background[0]}, ${skin.background[1]} 64%, ${skin.background[2]})`);
+    document.querySelector(".bead-a")?.style.setProperty("background", skin.colors[0]);
+    document.querySelector(".bead-b")?.style.setProperty("background", skin.colors[1]);
+    document.querySelector(".bead-c")?.style.setProperty("background", skin.colors[2]);
+    document.querySelector(".start-magnet")?.style.setProperty("background", `linear-gradient(145deg, ${skin.magnet[0]}, ${skin.magnet[1]})`);
     document.documentElement.style.background = skin.background[1];
     document.documentElement.style.setProperty("--skin-accent", skin.accent);
     document.documentElement.style.setProperty("--skin-top", skin.background[0]);
@@ -663,16 +671,62 @@
     };
   }
 
+  function scaleDynamicGameWorld(oldWidth, oldHeight) {
+    if (!oldWidth || !oldHeight || !state.level) {
+      resetLevel(false);
+      return;
+    }
+    const scaleX = state.width / oldWidth;
+    const scaleY = state.height / oldHeight;
+    const scalePoint = (item) => {
+      if (!item) return;
+      item.x *= scaleX;
+      item.y *= scaleY;
+    };
+
+    for (const target of state.targets) {
+      const source = state.level.targets[target.index] || target;
+      target.x = toWorldX(source.x);
+      target.y = toWorldY(source.y);
+      target.baseX = toWorldX(source.baseX ?? source.x);
+      target.baseY = toWorldY(source.baseY ?? source.y);
+      target.radius = Math.max(12, state.width * 0.038);
+    }
+
+    for (const bead of state.beads) {
+      scalePoint(bead);
+      bead.radius = Math.max(7, state.width * 0.018);
+      if (Array.isArray(bead.trail)) bead.trail.forEach(scalePoint);
+    }
+
+    scalePoint(state.magnet);
+    if (state.pointer) scalePoint(state.pointer);
+    if (state.failurePoint) scalePoint(state.failurePoint);
+    state.effects.forEach(scalePoint);
+    state.ripples.forEach((ripple) => {
+      scalePoint(ripple);
+      ripple.radius *= Math.min(scaleX, scaleY);
+    });
+  }
+
   function resize() {
     const rect = canvas.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
+    const oldWidth = state.width;
+    const oldHeight = state.height;
     state.dpr = Math.min(2, window.devicePixelRatio || 1);
     state.width = rect.width;
     state.height = rect.height;
     canvas.width = Math.round(rect.width * state.dpr);
     canvas.height = Math.round(rect.height * state.dpr);
     ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
-    if (state.level) resetLevel(false);
+    if (state.level) {
+      if (state.started) {
+        scaleDynamicGameWorld(oldWidth, oldHeight);
+      } else {
+        resetLevel(false);
+      }
+    }
     if (customEditor.classList.contains("open")) resizeCustomCanvas();
     requestRender();
   }
@@ -1570,7 +1624,7 @@
       startScreen.inert = false;
       startSkinButton?.focus();
     } else {
-      (skinButton || menuButton)?.focus();
+      menuButton?.focus();
     }
   }
 
