@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#dffbf8">
   <link rel="icon" href="data:,">
   <title>磁力珠织图</title>
-  <link rel="stylesheet" href="styles.css?v=12">
+  <link rel="stylesheet" href="styles.css?v=13">
 </head>
 <body>
   <main id="app">
@@ -36,11 +36,14 @@
         <span>牵引玻璃珠，拼出软软的果冻图案</span>
       </div>
       <div class="start-actions">
+        <button id="startSkinButton" class="secondary-button">&#30382;&#32932;</button>
         <button id="startButton" class="primary-button">开始游戏</button>
+        <button id="casualModeButton" class="secondary-button casual-entry-button">休闲图形</button>
         <button id="customModeButton" class="secondary-button">自定义模式</button>
         <button id="startSettingsButton" class="secondary-button">设置</button>
         <div class="start-meta">
           <span id="startProgress">已完成 0 / 40</span>
+          <span id="casualProgress">休闲图形 0 / 12</span>
           <button id="startLevelButton" class="text-button">选择关卡</button>
         </div>
       </div>
@@ -88,6 +91,7 @@
         </div>
         <button id="resumeButton" class="primary-button compact">继续游戏</button>
         <div class="menu-grid">
+          <button id="skinButton" class="menu-tile"><span>&#10022;</span>&#30382;&#32932;</button>
           <button id="restartButton" class="menu-tile"><span>↻</span>重新开始</button>
           <button id="menuLevelButton" class="menu-tile"><span>▦</span>选择关卡</button>
           <button id="galleryButton" class="menu-tile"><span>◆</span>徽章墙</button>
@@ -112,6 +116,19 @@
         <div id="levelGrid" class="level-grid"></div>
       </div>
     </section>
+    <section id="casualSelector" class="gallery casual-selector" role="dialog" aria-modal="true" aria-labelledby="casualSelectorTitle" aria-hidden="true" inert>
+      <div class="gallery-card casual-card">
+        <div class="gallery-title">
+          <div>
+            <p>CASUAL SHAPES</p>
+            <h1 id="casualSelectorTitle">休闲图形</h1>
+          </div>
+          <button id="closeCasualSelector" class="close-button" aria-label="关闭休闲图形">×</button>
+        </div>
+        <p class="casual-intro">轻松吸附玻璃珠，完成可爱果冻图案。</p>
+        <div id="casualGrid" class="casual-grid"></div>
+      </div>
+    </section>
     <section id="gallery" class="gallery" role="dialog" aria-modal="true" aria-labelledby="galleryTitle" aria-hidden="true" inert>
       <div class="gallery-card">
         <div class="gallery-title">
@@ -122,6 +139,18 @@
           <button id="closeGallery" class="close-button" aria-label="关闭徽章墙">×</button>
         </div>
         <div id="badgeGrid" class="badge-grid"></div>
+      </div>
+    </section>
+    <section id="skinSelector" class="gallery skin-overlay" role="dialog" aria-modal="true" aria-labelledby="skinSelectorTitle" aria-hidden="true" inert>
+      <div class="gallery-card skin-card">
+        <div class="gallery-title">
+          <div>
+            <p>JELLY SKINS</p>
+            <h1 id="skinSelectorTitle">&#30382;&#32932;&#22806;&#35266;</h1>
+          </div>
+          <button id="closeSkinSelector" class="close-button" aria-label="&#20851;&#38381;&#30382;&#32932;&#36873;&#25321;">脳</button>
+        </div>
+        <div id="skinGrid" class="skin-grid"></div>
       </div>
     </section>
     <section id="resultScreen" class="gallery result-overlay" role="dialog" aria-modal="true" aria-labelledby="resultTitle" aria-hidden="true" inert>
@@ -187,6 +216,6 @@
     </section>
     <div id="rotateHint" class="rotate-hint">请竖屏游玩</div>
   </main>
-  <script src="game.js?v=14"></script>
+  <script src="game.js?v=15"></script>
 </body>
 </html>

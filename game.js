@@ -6,8 +6,10 @@
   const hud = document.getElementById("hud");
   const startScreen = document.getElementById("startScreen");
   const startButton = document.getElementById("startButton");
+  const casualModeButton = document.getElementById("casualModeButton");
   const customModeButton = document.getElementById("customModeButton");
   const startProgress = document.getElementById("startProgress");
+  const casualProgress = document.getElementById("casualProgress");
   const startLevelButton = document.getElementById("startLevelButton");
   const startSettingsButton = document.getElementById("startSettingsButton");
   const settingsDialog = document.getElementById("settingsDialog");
@@ -30,6 +32,8 @@
   const menuLevelButton = document.getElementById("menuLevelButton");
   const homeButton = document.getElementById("homeButton");
   const customMenuButton = document.getElementById("customMenuButton");
+  const startSkinButton = document.getElementById("startSkinButton");
+  const skinButton = document.getElementById("skinButton");
   const soundToggle = document.getElementById("soundToggle");
   const vibrationToggle = document.getElementById("vibrationToggle");
   const levelNumber = document.getElementById("levelNumber");
@@ -37,12 +41,18 @@
   const levelSelector = document.getElementById("levelSelector");
   const levelGrid = document.getElementById("levelGrid");
   const closeLevelSelector = document.getElementById("closeLevelSelector");
+  const casualSelector = document.getElementById("casualSelector");
+  const casualGrid = document.getElementById("casualGrid");
+  const closeCasualSelector = document.getElementById("closeCasualSelector");
   const progressTrack = document.getElementById("progressTrack");
   const progressFill = document.getElementById("progressFill");
   const gallery = document.getElementById("gallery");
   const badgeGrid = document.getElementById("badgeGrid");
   const galleryButton = document.getElementById("galleryButton");
   const closeGallery = document.getElementById("closeGallery");
+  const skinSelector = document.getElementById("skinSelector");
+  const skinGrid = document.getElementById("skinGrid");
+  const closeSkinSelector = document.getElementById("closeSkinSelector");
   const resultScreen = document.getElementById("resultScreen");
   const resultIcon = document.getElementById("resultIcon");
   const resultTitle = document.getElementById("resultTitle");
@@ -68,6 +78,83 @@
   const TAU = Math.PI * 2;
   const WIND_BREATH_SPEED = 0.00085;
   const COLORS = ["#7b67eb", "#55d5cf", "#f48abd", "#ffbd69"];
+  const SKINS = [
+    {
+      id: "mint",
+      name: "\u679c\u51bb\u8584\u8377",
+      note: "\u521d\u59cb\u5916\u89c2",
+      unlockLevel: 0,
+      background: ["#f5fffe", "#ddf9f6", "#c5ecee"],
+      colors: ["#7b67eb", "#55d5cf", "#f48abd", "#ffbd69"],
+      magnet: ["#b59cff", "#6a55d7"],
+      repulse: ["#ffafd0", "#d84d83"],
+      accent: "#7b67eb",
+      wind: ["#56d6cf", "#7b67eb"],
+      hazard: ["#ffbfd7", "#f06798", "#bd3970"],
+      bumper: ["#fff7c7", "#ffc96e", "#f28f61"],
+      splitter: ["#e8dcff", "#a987ff", "#5ddbd2"]
+    },
+    {
+      id: "sakura",
+      name: "\u6a31\u82b1\u6c7d\u6c34",
+      note: "\u7b2c 5 \u5173\u89e3\u9501",
+      unlockLevel: 5,
+      background: ["#fff9fb", "#ffe8f0", "#dff4ff"],
+      colors: ["#ff8fbd", "#ffb17d", "#a98cff", "#6bd6ff"],
+      magnet: ["#ffc0dc", "#d66bc2"],
+      repulse: ["#ffc287", "#ef6c94"],
+      accent: "#d66bc2",
+      wind: ["#6bd6ff", "#ff8fbd"],
+      hazard: ["#ffd2df", "#ee7094", "#b84168"],
+      bumper: ["#fff2bd", "#ffb76c", "#ef7b72"],
+      splitter: ["#ffe4f2", "#d9a0ff", "#78dfff"]
+    },
+    {
+      id: "mango",
+      name: "\u70ed\u5e26\u8292\u679c",
+      note: "\u7b2c 10 \u5173\u89e3\u9501",
+      unlockLevel: 10,
+      background: ["#fff8d7", "#ffdf9d", "#bcefe4"],
+      colors: ["#ffad33", "#ff6f61", "#8bd646", "#28b6c9"],
+      magnet: ["#ffd873", "#f0793a"],
+      repulse: ["#ff9b7b", "#d8445a"],
+      accent: "#f0793a",
+      wind: ["#28b6c9", "#8bd646"],
+      hazard: ["#ffc6af", "#f15f62", "#b9394f"],
+      bumper: ["#fff7ae", "#ffc445", "#f18f38"],
+      splitter: ["#fff1a6", "#ff9f45", "#31c9b8"]
+    },
+    {
+      id: "neon",
+      name: "\u661f\u591c\u9713\u8679",
+      note: "\u7b2c 20 \u5173\u89e3\u9501",
+      unlockLevel: 20,
+      background: ["#12183b", "#1b2556", "#0c4255"],
+      colors: ["#a06bff", "#22d5ff", "#ff5ac8", "#ffe066"],
+      magnet: ["#ad7cff", "#2f5cff"],
+      repulse: ["#ff78cf", "#d62f7f"],
+      accent: "#22d5ff",
+      wind: ["#22d5ff", "#a06bff"],
+      hazard: ["#ff9ed8", "#ff4aa5", "#8d285c"],
+      bumper: ["#fff1a8", "#ffe066", "#ff9c32"],
+      splitter: ["#c5a5ff", "#8c5cff", "#26e2ff"]
+    },
+    {
+      id: "aurora",
+      name: "\u6781\u5149\u51b0\u5ddd",
+      note: "\u7b2c 30 \u5173\u89e3\u9501",
+      unlockLevel: 30,
+      background: ["#f4fbff", "#d8f2ff", "#c8e2ff"],
+      colors: ["#7edcff", "#66f0c7", "#b5a6ff", "#f2fbff"],
+      magnet: ["#9ff0ff", "#6f87f5"],
+      repulse: ["#ffc7e0", "#d867a8"],
+      accent: "#6f87f5",
+      wind: ["#66f0c7", "#7edcff"],
+      hazard: ["#ffd3e5", "#ed6c9d", "#a84d89"],
+      bumper: ["#fffed0", "#a7f4ff", "#7ac7ff"],
+      splitter: ["#eef6ff", "#a9f4e3", "#9e9bff"]
+    }
+  ];
   const LEVEL_ICONS = ["●", "♥", "◆", "✦", "☁", "✿", "☾", "★", "♬", "▲", "●", "♥", "◆", "✦", "☁", "✿", "☾", "★", "♬", "▲", "◒", "≈", "↗", "✧", "✺", "◎", "↔", "↕", "⊙", "◉", "⟳", "◌", "⇆", "≋", "⊕", "±", "↯", "◇", "∞", "✹"];
   const SAVE_KEY = "magnetic-jelly-save-v1";
   const CUSTOM_SAVE_KEY = "magnetic-jelly-custom-v1";
@@ -94,6 +181,8 @@
     cameraShake: 0,
     completed: new Set(),
     bestUnlocked: 0,
+    casualCompleted: new Set(),
+    casualIndex: 0,
     audio: null,
     tutorialAlpha: 1,
     mechanismHint: null,
@@ -103,7 +192,9 @@
     vibrationEnabled: true,
     hintsEnabled: true,
     reducedMotion: false,
+    skinId: "mint",
     developerMode: false,
+    casualMode: false,
     customMode: false,
     customLevel: null,
     editorReturn: "home",
@@ -135,35 +226,81 @@
     [[0, -2], [-1, -1], [0, -1], [1, -1], [-2, 0], [-1, 0], [0, 0], [1, 0], [2, 0], [-1, 1], [0, 1], [1, 1], [0, 2]]
   ];
 
+  function skinById(id) {
+    return SKINS.find((skin) => skin.id === id) || SKINS[0];
+  }
+
+  function isSkinUnlocked(skin) {
+    return state.developerMode || state.completed.size >= skin.unlockLevel;
+  }
+
+  function activeSkin() {
+    const skin = skinById(state.skinId);
+    return isSkinUnlocked(skin) ? skin : SKINS[0];
+  }
+
+  function paletteColor(index) {
+    const colors = activeSkin().colors;
+    return colors[index % colors.length] || COLORS[index % COLORS.length];
+  }
+
+  function hexToRgba(hex, alpha) {
+    const value = parseInt(hex.slice(1), 16);
+    return `rgba(${value >> 16},${(value >> 8) & 255},${value & 255},${alpha})`;
+  }
+
+  function applySkinToDom() {
+    const skin = activeSkin();
+    document.body.style.background = `radial-gradient(circle at 50% 10%, #ffffff 0, ${skin.background[0]} 30%, ${skin.background[1]} 72%, ${skin.background[2]} 100%)`;
+    document.documentElement.style.background = skin.background[1];
+    document.documentElement.style.setProperty("--skin-accent", skin.accent);
+    document.documentElement.style.setProperty("--skin-top", skin.background[0]);
+    document.documentElement.style.setProperty("--skin-bottom", skin.background[2]);
+    if (polarityButton) {
+      polarityButton.style.background = `linear-gradient(145deg, ${state.magnet.polarity > 0 ? skin.magnet[0] : skin.repulse[0]}, ${state.magnet.polarity > 0 ? skin.magnet[1] : skin.repulse[1]})`;
+    }
+  }
+
+  if (customModeButton && startSkinButton) customModeButton.insertAdjacentElement("afterend", startSkinButton);
+  if (galleryButton && skinButton) galleryButton.insertAdjacentElement("afterend", skinButton);
+
   function loadSave() {
     try {
       const save = JSON.parse(localStorage.getItem(SAVE_KEY) || "{}");
       state.completed = new Set(Array.isArray(save.completed) ? save.completed : []);
+      state.casualCompleted = new Set(Array.isArray(save.casualCompleted) ? save.casualCompleted : []);
       const maxIndex = levels.length - 1;
       state.bestUnlocked = Math.min(maxIndex, Math.max(0, save.bestUnlocked || 0));
       if (state.bestUnlocked === 19 && state.completed.has(19)) state.bestUnlocked = 20;
       if (state.completed.has(24)) state.bestUnlocked = Math.max(state.bestUnlocked, 25);
       const savedLevel = Number.isInteger(save.currentLevel) ? save.currentLevel : state.bestUnlocked;
       state.levelIndex = Math.min(maxIndex, Math.max(0, savedLevel));
+      state.casualIndex = Math.min(casualLevels.length - 1, Math.max(0, Number.isInteger(save.currentCasualLevel) ? save.currentCasualLevel : 0));
       state.soundEnabled = save.soundEnabled !== false;
       state.vibrationEnabled = save.vibrationEnabled !== false;
       state.hintsEnabled = save.hintsEnabled !== false;
       state.reducedMotion = save.reducedMotion === true;
       state.developerMode = save.developerMode === true;
+      state.skinId = typeof save.skinId === "string" ? save.skinId : "mint";
+      if (!isSkinUnlocked(skinById(state.skinId))) state.skinId = "mint";
     } catch {
       state.completed = new Set();
+      state.casualCompleted = new Set();
     }
   }
 
   function saveProgress() {
     localStorage.setItem(SAVE_KEY, JSON.stringify({
       completed: [...state.completed],
+      casualCompleted: [...state.casualCompleted],
       bestUnlocked: state.bestUnlocked,
       currentLevel: state.levelIndex,
+      currentCasualLevel: state.casualIndex,
       soundEnabled: state.soundEnabled,
       vibrationEnabled: state.vibrationEnabled,
       hintsEnabled: state.hintsEnabled,
       reducedMotion: state.reducedMotion,
+      skinId: state.skinId,
       developerMode: state.developerMode
     }));
   }
@@ -391,6 +528,47 @@
   }
 
   const levels = makeLevels();
+  const casualLevels = makeCasualLevels();
+
+  function makeCasualLevels() {
+    const shapeTargets = (points, colors = 3, centerX = 0.5, centerY = 0.32, stepX = 0.065, stepY = 0.047) =>
+      points.map(([x, y, color], index) => ({
+        x: centerX + x * stepX,
+        y: centerY + y * stepY,
+        color: color ?? index % colors
+      }));
+    const makeLevel = (title, icon, points, colors = 3, options = {}) => ({
+      title,
+      icon,
+      targets: shapeTargets(points, colors, options.centerX ?? 0.5, options.centerY ?? 0.32, options.stepX ?? 0.065, options.stepY ?? 0.047),
+      hazards: [],
+      rotators: [],
+      gates: [],
+      bumpers: [],
+      windFields: [],
+      splitters: [],
+      portals: [],
+      beadCount: points.length,
+      colorCount: colors,
+      magnetConstraint: { type: "free", minX: 0.08, maxX: 0.92, minY: 0.28, maxY: 0.9 },
+      spawnZones: [{ type: "circle", cx: 0.5, cy: 0.78, radius: 0.12 }],
+      casual: true
+    });
+    return [
+      makeLevel("笑脸果冻", "☺", [[-2,-1,0],[2,-1,1],[-3,0,2],[3,0,2],[-2,2,3],[-1,3,3],[0,3,3],[1,3,3],[2,2,3],[0,1,0]], 4),
+      makeLevel("小猫脑袋", "猫", [[-2,-3,0],[2,-3,0],[-3,-2,0],[3,-2,0],[-3,0,1],[3,0,1],[-2,2,2],[-1,3,2],[0,3,2],[1,3,2],[2,2,2],[-1,0,3],[1,0,3],[0,1,0]], 4),
+      makeLevel("软糖爱心", "♥", [[-1,-2,2],[1,-2,2],[-2,-1,2],[0,-1,3],[2,-1,2],[-3,0,2],[-1,0,3],[1,0,3],[3,0,2],[-2,1,2],[0,1,3],[2,1,2],[-1,2,2],[1,2,2],[0,3,2]], 4),
+      makeLevel("星星糖", "★", [[0,-3,3],[-1,-1,3],[0,-1,1],[1,-1,3],[-3,0,3],[-1,0,1],[1,0,1],[3,0,3],[-1,1,3],[0,1,1],[1,1,3],[-2,3,3],[2,3,3]], 4),
+      makeLevel("果冻小花", "✿", [[0,-3,2],[-2,-2,0],[2,-2,1],[-3,0,0],[-1,0,3],[0,0,3],[1,0,3],[3,0,1],[-2,2,2],[2,2,0],[0,3,1]], 4),
+      makeLevel("棉花云", "☁", [[-3,0,1],[-2,-1,1],[-1,-2,1],[0,-2,1],[1,-1,1],[2,-1,1],[3,0,1],[-3,1,1],[-2,2,1],[-1,2,0],[0,2,0],[1,2,0],[2,2,1],[3,1,1]], 2),
+      makeLevel("弯弯月", "☾", [[1,-3,3],[0,-2,3],[-1,-1,3],[-2,0,3],[-2,1,3],[-1,2,3],[0,3,3],[1,3,3],[0,1,1],[1,0,1],[1,-1,1]], 4),
+      makeLevel("蝴蝶结", "⋈", [[-3,-2,0],[-2,-1,0],[-3,0,0],[-2,1,0],[-3,2,0],[3,-2,2],[2,-1,2],[3,0,2],[2,1,2],[3,2,2],[-1,0,3],[0,0,3],[1,0,3],[0,-1,1],[0,1,1]], 4),
+      makeLevel("甜甜糖果", "糖", [[-3,-1,1],[-2,0,1],[-3,1,1],[-1,-2,2],[0,-2,2],[1,-2,2],[-2,-1,3],[2,-1,3],[-2,1,3],[2,1,3],[-1,2,2],[0,2,2],[1,2,2],[3,-1,0],[2,0,0],[3,1,0]], 4),
+      makeLevel("小皇冠", "♛", [[-3,1,3],[-2,-1,3],[-1,1,3],[0,-2,3],[1,1,3],[2,-1,3],[3,1,3],[-3,2,1],[-2,2,1],[-1,2,1],[0,2,1],[1,2,1],[2,2,1],[3,2,1]], 4),
+      makeLevel("小熊脸", "熊", [[-2,-3,0],[2,-3,0],[-3,-1,0],[3,-1,0],[-3,1,1],[3,1,1],[-2,3,2],[-1,3,2],[0,3,2],[1,3,2],[2,3,2],[-1,0,3],[1,0,3],[0,1,0],[0,2,3]], 4),
+      makeLevel("彩虹果冻", "⌒", [[-3,1,0],[-2,0,0],[-1,-1,0],[0,-1,0],[1,-1,0],[2,0,0],[3,1,0],[-2,2,1],[-1,1,1],[0,1,1],[1,1,1],[2,2,1],[-1,3,2],[0,2,2],[1,3,2]], 3, { centerY: 0.29 })
+    ];
+  }
 
   function emptyCustomDraft() {
     return {
@@ -576,8 +754,8 @@
   }
 
   function resetLevel(animate = true) {
-    const level = state.customMode ? state.customLevel : levels[state.levelIndex];
-    const rand = seeded(state.customMode ? 909 : state.levelIndex + 41);
+    const level = state.customMode ? state.customLevel : state.casualMode ? casualLevels[state.casualIndex] : levels[state.levelIndex];
+    const rand = seeded(state.customMode ? 909 : state.casualMode ? state.casualIndex + 1409 : state.levelIndex + 41);
     const beadColors = level.spawnColors ? [...level.spawnColors] : level.targets.map((target) => target.color);
     for (let index = beadColors.length - 1; index > 0; index--) {
       const swapIndex = Math.floor(rand() * (index + 1));
@@ -590,8 +768,8 @@
     state.resultShown = false;
     state.startAt = performance.now();
     state.levelCaptureCount = 0;
-    state.tutorialAlpha = state.hintsEnabled && !state.customMode && state.levelIndex === 0 ? 1 : 0;
-    const legacyHint = !state.customMode && [20, 21, 23].includes(state.levelIndex)
+    state.tutorialAlpha = state.hintsEnabled && !state.customMode && !state.casualMode && state.levelIndex === 0 ? 1 : 0;
+    const legacyHint = !state.customMode && !state.casualMode && [20, 21, 23].includes(state.levelIndex)
       ? (state.levelIndex === 20 ? "bumper" : state.levelIndex === 21 ? "wind" : "splitter")
       : null;
     const hintType = level.hint || legacyHint;
@@ -638,11 +816,12 @@
     state.effects = [];
     state.ripples = animate ? [{ x: state.width / 2, y: state.height * 0.45, radius: 10, alpha: 0.22, speed: 2.4 }] : [];
     state.cameraShake = 0;
-    levelNumber.textContent = state.customMode ? "自定" : String(state.levelIndex + 1);
+    levelNumber.textContent = state.customMode ? "自定" : state.casualMode ? `图${state.casualIndex + 1}` : String(state.levelIndex + 1);
     progressFill.style.width = "0%";
     progressTrack.setAttribute("aria-valuenow", "0");
     setElementAvailable(polarityButton, Boolean(level.polarity && state.started));
     polarityButton.classList.remove("repulse");
+    applySkinToDom();
     polarityButton.querySelector("strong").textContent = "吸";
     requestRender();
   }
@@ -725,7 +904,7 @@
   }
 
   canvas.addEventListener("pointerdown", (event) => {
-    if (!state.started || state.uiPaused || gallery.classList.contains("open") || levelSelector.classList.contains("open") || state.status !== "playing") return;
+    if (!state.started || state.uiPaused || gallery.classList.contains("open") || levelSelector.classList.contains("open") || casualSelector.classList.contains("open") || state.status !== "playing") return;
     initAudio();
     canvas.setPointerCapture(event.pointerId);
     const point = pointerPosition(event);
@@ -819,8 +998,8 @@
     const width = editor.width;
     const height = editor.height;
     const gradient = customCtx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, "#f4fffe");
-    gradient.addColorStop(1, "#d7f5f2");
+    gradient.addColorStop(0, activeSkin().background[0]);
+    gradient.addColorStop(1, activeSkin().background[1]);
     customCtx.fillStyle = gradient;
     customCtx.fillRect(0, 0, width, height);
 
@@ -835,7 +1014,7 @@
       customCtx.stroke();
     }
     if (editor.draft.template === "cross") {
-      customCtx.strokeStyle = "rgba(123,103,235,.25)";
+      customCtx.strokeStyle = hexToRgba(activeSkin().accent, 0.25);
       customCtx.setLineDash([5, 6]);
       customCtx.beginPath();
       customCtx.moveTo(width * 0.28, height * 0.5);
@@ -910,7 +1089,7 @@
     }
 
     for (const bumper of editor.draft.bumpers) {
-      drawEditorCircle(bumper.x * width, bumper.y * height, bumper.radius * width, "#6dd8d2");
+      drawEditorCircle(bumper.x * width, bumper.y * height, bumper.radius * width, activeSkin().bumper[1]);
       customCtx.fillStyle = "#fff";
       customCtx.font = "700 18px system-ui";
       customCtx.textAlign = "center";
@@ -918,7 +1097,7 @@
     }
 
     for (const hazard of editor.draft.hazards) {
-      drawEditorCircle(hazard.x * width, hazard.y * height, hazard.radius * width, "#ef6f9b");
+      drawEditorCircle(hazard.x * width, hazard.y * height, hazard.radius * width, activeSkin().hazard[1]);
       customCtx.fillStyle = "#fff";
       customCtx.font = "800 17px system-ui";
       customCtx.textAlign = "center";
@@ -929,7 +1108,7 @@
       const portal = editor.draft.portals[index];
       const x = portal.x * width;
       const y = portal.y * height;
-      customCtx.strokeStyle = index % 2 ? "#55d5cf" : "#8b74ed";
+      customCtx.strokeStyle = index % 2 ? activeSkin().wind[0] : activeSkin().accent;
       customCtx.lineWidth = 5;
       customCtx.beginPath();
       customCtx.arc(x, y, width * 0.05, 0, TAU);
@@ -943,8 +1122,8 @@
     for (const target of editor.draft.targets) {
       const x = target.x * width;
       const y = target.y * height;
-      drawEditorCircle(x, y, Math.max(12, width * 0.038), "rgba(255,255,255,.64)", COLORS[target.color]);
-      drawEditorCircle(x, y, Math.max(5, width * 0.014), COLORS[target.color], COLORS[target.color]);
+      drawEditorCircle(x, y, Math.max(12, width * 0.038), "rgba(255,255,255,.64)", paletteColor(target.color));
+      drawEditorCircle(x, y, Math.max(5, width * 0.014), paletteColor(target.color), paletteColor(target.color));
     }
   }
 
@@ -1097,6 +1276,7 @@
       syncAnimation();
     } else {
       state.customMode = false;
+      state.casualMode = false;
       refreshStartScreen();
       setStarted(false);
       startScreen.inert = false;
@@ -1123,6 +1303,7 @@
     state.magnet.polarity *= -1;
     const repulse = state.magnet.polarity < 0;
     polarityButton.classList.toggle("repulse", repulse);
+    applySkinToDom();
     polarityButton.setAttribute("aria-pressed", String(repulse));
     polarityButton.querySelector("strong").textContent = repulse ? "斥" : "吸";
     vibrate(repulse ? [8, 18, 8] : 10);
@@ -1153,22 +1334,38 @@
     developerBadge.classList.toggle("on", state.developerMode);
     developerModeButton.textContent = state.developerMode ? "关闭" : "开启";
     developerPassword.disabled = state.developerMode;
+    applySkinToDom();
     developerPassword.placeholder = state.developerMode ? "已验证" : "输入密码";
   }
 
   function refreshStartScreen() {
     const completedCount = state.completed.size;
+    const casualCompletedCount = state.casualCompleted.size;
     startProgress.textContent = `已完成 ${completedCount} / ${levels.length}`;
+    casualProgress.textContent = `休闲图形 ${casualCompletedCount} / ${casualLevels.length}`;
     startButton.textContent = completedCount > 0 ? `继续第 ${state.levelIndex + 1} 关` : "开始游戏";
   }
 
   startButton.addEventListener("click", () => {
     state.customMode = false;
+    state.casualMode = false;
     setStarted(true);
     resetLevel();
   });
 
-  customModeButton.addEventListener("click", () => openCustomEditorMode("home"));
+  casualModeButton.addEventListener("click", () => {
+    state.customMode = false;
+    state.casualMode = true;
+    startScreen.classList.add("hidden");
+    startScreen.inert = true;
+    renderCasualSelector();
+    openDialog(casualSelector, casualGrid.querySelector(".current") || closeCasualSelector, casualModeButton);
+  });
+
+  customModeButton.addEventListener("click", () => {
+    state.casualMode = false;
+    openCustomEditorMode("home");
+  });
 
   function openSettings() {
     developerPassword.value = "";
@@ -1189,6 +1386,7 @@
   });
 
   startLevelButton.addEventListener("click", () => {
+    state.casualMode = false;
     startScreen.classList.add("hidden");
     startScreen.inert = true;
     renderLevelSelector();
@@ -1216,6 +1414,7 @@
   homeButton.addEventListener("click", () => {
     hideMenu(false);
     state.customMode = false;
+    state.casualMode = false;
     refreshStartScreen();
     setStarted(false);
   });
@@ -1299,6 +1498,8 @@
     updateSettingButtons();
     refreshStartScreen();
     renderLevelSelector();
+    renderSkinSelector();
+    applySkinToDom();
     saveProgress();
   }
 
@@ -1310,18 +1511,28 @@
   resetProgressButton.addEventListener("click", () => {
     if (!window.confirm("确定要清空所有通关记录并从第 1 关重新开始吗？")) return;
     state.completed.clear();
+    state.casualCompleted.clear();
     state.bestUnlocked = 0;
     state.levelIndex = 0;
+    state.casualIndex = 0;
+    state.skinId = "mint";
     state.shownHints.clear();
     refreshStartScreen();
     renderLevelSelector();
     renderGallery();
+    renderSkinSelector();
+    applySkinToDom();
     saveProgress();
     setDeveloperMessage("游戏进度已重置。", true);
   });
 
   levelSelectButton.addEventListener("click", () => {
     hideGallery();
+    if (state.casualMode) {
+      renderCasualSelector();
+      openDialog(casualSelector, casualGrid.querySelector(".current") || closeCasualSelector, levelSelectButton);
+      return;
+    }
     renderLevelSelector();
     openDialog(levelSelector, levelGrid.querySelector(".current:not(:disabled)") || closeLevelSelector, levelSelectButton);
   });
@@ -1329,6 +1540,10 @@
   closeLevelSelector.addEventListener("click", hideLevelSelector);
   levelSelector.addEventListener("click", (event) => {
     if (event.target === levelSelector) hideLevelSelector();
+  });
+  closeCasualSelector.addEventListener("click", hideCasualSelector);
+  casualSelector.addEventListener("click", (event) => {
+    if (event.target === casualSelector) hideCasualSelector();
   });
 
   galleryButton.addEventListener("click", () => {
@@ -1342,9 +1557,73 @@
     if (event.target === gallery) hideGallery();
   });
 
+  function openSkinSelector(returnFocus = skinButton || startSkinButton) {
+    renderSkinSelector();
+    openDialog(skinSelector, skinGrid.querySelector(".current:not(:disabled)") || skinGrid.querySelector(".skin-choice:not(:disabled)") || closeSkinSelector, returnFocus);
+  }
+
+  function hideSkinSelector() {
+    if (!skinSelector.classList.contains("open")) return;
+    closeDialog(skinSelector, true, false);
+    if (!state.started) {
+      startScreen.classList.remove("hidden");
+      startScreen.inert = false;
+      startSkinButton?.focus();
+    } else {
+      (skinButton || menuButton)?.focus();
+    }
+  }
+
+  startSkinButton?.addEventListener("click", () => {
+    startScreen.classList.add("hidden");
+    startScreen.inert = true;
+    openSkinSelector(startSkinButton);
+  });
+
+  skinButton?.addEventListener("click", () => {
+    closeDialog(gameMenu, false, false);
+    openSkinSelector(menuButton);
+  });
+
+  closeSkinSelector?.addEventListener("click", hideSkinSelector);
+  skinSelector?.addEventListener("click", (event) => {
+    if (event.target === skinSelector) hideSkinSelector();
+  });
+
+  skinGrid?.addEventListener("click", (event) => {
+    const button = event.target.closest(".skin-choice:not(:disabled)");
+    if (!button) return;
+    const nextSkin = skinById(button.dataset.skin);
+    if (!isSkinUnlocked(nextSkin)) return;
+    state.skinId = nextSkin.id;
+    applySkinToDom();
+    renderSkinSelector();
+    saveProgress();
+    requestRender();
+    marimbaNote(523.25, 0, false, 0.55);
+  });
+
   function hideGallery() {
     if (!gallery.classList.contains("open")) return;
     closeDialog(gallery, true);
+  }
+
+  function renderSkinSelector() {
+    skinGrid.innerHTML = SKINS.map((skin) => {
+      const unlocked = isSkinUnlocked(skin);
+      const current = activeSkin().id === skin.id;
+      const status = current
+        ? "\u4f7f\u7528\u4e2d"
+        : unlocked ? "\u4f7f\u7528" : `\u5b8c\u6210 ${skin.unlockLevel} \u5173`;
+      const swatches = skin.colors.map((color) => `<i style="--swatch-color:${color}"></i>`).join("");
+      const orbs = skin.colors.slice(0, 3).map((color) => `<span class="skin-orb" style="--orb-color:${color}"></span>`).join("");
+      return `<button class="skin-choice ${current ? "current" : ""}" data-skin="${skin.id}" ${unlocked ? "" : "disabled"} style="--skin-top:${skin.background[0]};--skin-bottom:${skin.background[2]}" aria-label="${skin.name}${unlocked ? "" : `，${status}`}">
+        <span class="skin-status">${status}</span>
+        <span class="skin-preview" aria-hidden="true">${orbs}</span>
+        <span class="skin-name"><strong>${skin.name}</strong><small>${skin.note}</small></span>
+        <span class="skin-swatches" aria-hidden="true">${swatches}</span>
+      </button>`;
+    }).join("");
   }
 
   function hideLevelSelector() {
@@ -1354,6 +1633,18 @@
       startScreen.classList.remove("hidden");
       startScreen.inert = false;
       startLevelButton.focus();
+    } else {
+      levelSelectButton.focus();
+    }
+  }
+
+  function hideCasualSelector() {
+    if (!casualSelector.classList.contains("open")) return;
+    closeDialog(casualSelector, true, false);
+    if (!state.started) {
+      startScreen.classList.remove("hidden");
+      startScreen.inert = false;
+      casualModeButton.focus();
     } else {
       levelSelectButton.focus();
     }
@@ -1375,9 +1666,37 @@
     const button = event.target.closest(".level-choice:not(:disabled)");
     if (!button) return;
     state.customMode = false;
+    state.casualMode = false;
     state.levelIndex = Number(button.dataset.level);
     saveProgress();
     hideLevelSelector();
+    setStarted(true);
+    resetLevel();
+  });
+
+  function renderCasualSelector() {
+    casualGrid.innerHTML = casualLevels.map((level, index) => {
+      const completed = state.casualCompleted.has(index);
+      const classes = [
+        "casual-choice",
+        index === state.casualIndex ? "current" : "",
+        completed ? "completed" : ""
+      ].filter(Boolean).join(" ");
+      return `<button class="${classes}" data-casual="${index}" aria-label="进入休闲图形 ${level.title}">
+        <span class="casual-choice-icon">${level.icon}</span>
+        <span><strong>${level.title}</strong><small>${completed ? "已完成" : `${level.targets.length} 个果冻墙`}</small></span>
+      </button>`;
+    }).join("");
+  }
+
+  casualGrid.addEventListener("click", (event) => {
+    const button = event.target.closest(".casual-choice");
+    if (!button) return;
+    state.customMode = false;
+    state.casualMode = true;
+    state.casualIndex = Number(button.dataset.casual);
+    saveProgress();
+    hideCasualSelector();
     setStarted(true);
     resetLevel();
   });
@@ -1405,6 +1724,17 @@
       openDialog(resultScreen, nextLevelButton, levelSelectButton);
       return;
     }
+    if (state.casualMode) {
+      const finalCasualLevel = state.casualIndex === casualLevels.length - 1;
+      resultIcon.textContent = state.level.icon;
+      resultTitle.textContent = `${state.level.title}完成`;
+      resultMessage.textContent = "软软的果冻图案已经拼好啦，休闲图形进度已记录。";
+      nextLevelButton.textContent = finalCasualLevel ? "返回首页" : "下一幅";
+      resultRestartButton.textContent = "再玩一次";
+      resultLevelButton.textContent = "选择图案";
+      openDialog(resultScreen, nextLevelButton, levelSelectButton);
+      return;
+    }
     const finalLevel = state.levelIndex === levels.length - 1;
     resultIcon.textContent = state.level.icon;
     resultTitle.textContent = state.developerMode
@@ -1425,6 +1755,23 @@
     if (state.customMode) {
       closeDialog(resultScreen, false, false);
       openCustomEditorMode("home");
+      return;
+    }
+    if (state.casualMode) {
+      const finalCasualLevel = state.casualIndex === casualLevels.length - 1;
+      closeDialog(resultScreen, false, false);
+      if (finalCasualLevel) {
+        state.casualMode = false;
+        refreshStartScreen();
+        setStarted(false);
+        casualModeButton.focus();
+        return;
+      }
+      state.casualIndex += 1;
+      saveProgress();
+      state.uiPaused = false;
+      resetLevel();
+      syncAnimation();
       return;
     }
     const finalLevel = state.levelIndex === levels.length - 1;
@@ -1458,6 +1805,11 @@
       startButton.focus();
       return;
     }
+    if (state.casualMode) {
+      renderCasualSelector();
+      openDialog(casualSelector, casualGrid.querySelector(".current") || closeCasualSelector, levelSelectButton);
+      return;
+    }
     renderLevelSelector();
     openDialog(levelSelector, levelGrid.querySelector(".current:not(:disabled)") || closeLevelSelector, levelSelectButton);
   });
@@ -1474,6 +1826,7 @@
       event.preventDefault();
       if (activeDialog === gameMenu) hideMenu(true);
       else if (activeDialog === levelSelector) hideLevelSelector();
+      else if (activeDialog === casualSelector) hideCasualSelector();
       else if (activeDialog === gallery) hideGallery();
       else if (activeDialog === settingsDialog) hideSettings();
       return;
@@ -1613,7 +1966,7 @@
         vx: Math.cos(angle) * speed,
         vy: Math.sin(angle) * speed,
         life: 1,
-        color: COLORS[index % COLORS.length],
+        color: paletteColor(index),
         size: 3 + Math.random() * 5
       });
     }
@@ -1633,7 +1986,7 @@
         vx: Math.cos(angle) * (1 + Math.random() * 2),
         vy: Math.sin(angle) * (1 + Math.random() * 2),
         life: 1,
-        color: COLORS[target.color],
+        color: paletteColor(target.color),
         size: 2 + Math.random() * 3
       });
     }
@@ -1658,7 +2011,11 @@
     state.resultShown = false;
     state.magnet.active = false;
     state.pointer.down = false;
-    if (!state.customMode && !state.developerMode) {
+    if (state.casualMode) {
+      state.casualCompleted.add(state.casualIndex);
+      saveProgress();
+      refreshStartScreen();
+    } else if (!state.customMode && !state.developerMode) {
       state.completed.add(state.levelIndex);
       state.bestUnlocked = Math.max(state.bestUnlocked, Math.min(levels.length - 1, state.levelIndex + 1));
       saveProgress();
@@ -1962,7 +2319,7 @@
         vx: Math.cos(angle) * (1.5 + Math.random() * 3),
         vy: Math.sin(angle) * (1.5 + Math.random() * 3),
         life: 1,
-        color: COLORS[bead.color],
+        color: paletteColor(bead.color),
         size: 2 + Math.random() * 4
       });
     }
@@ -1992,10 +2349,11 @@
   }
 
   function drawBackground(now) {
+    const skin = activeSkin();
     const gradient = ctx.createLinearGradient(0, 0, 0, state.height);
-    gradient.addColorStop(0, "#f5fffe");
-    gradient.addColorStop(0.58, "#ddf9f6");
-    gradient.addColorStop(1, "#c5ecee");
+    gradient.addColorStop(0, skin.background[0]);
+    gradient.addColorStop(0.58, skin.background[1]);
+    gradient.addColorStop(1, skin.background[2]);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, state.width, state.height);
 
@@ -2018,10 +2376,10 @@
     ctx.translate(target.x, target.y);
     if (target.filled) ctx.scale(target.fillScale, target.fillScale);
 
-    ctx.shadowColor = target.filled ? COLORS[target.color] : `${COLORS[target.color]}55`;
+    ctx.shadowColor = target.filled ? paletteColor(target.color) : `${paletteColor(target.color)}55`;
     ctx.shadowBlur = target.filled ? 14 : 9;
-    ctx.fillStyle = target.filled ? COLORS[target.color] : `${COLORS[target.color]}18`;
-    ctx.strokeStyle = target.filled ? "rgba(255,255,255,.75)" : `${COLORS[target.color]}99`;
+    ctx.fillStyle = target.filled ? paletteColor(target.color) : `${paletteColor(target.color)}18`;
+    ctx.strokeStyle = target.filled ? "rgba(255,255,255,.75)" : `${paletteColor(target.color)}99`;
     ctx.lineWidth = target.filled ? 2 : 3;
     ctx.beginPath();
     ctx.arc(0, 0, radius, 0, TAU);
@@ -2043,7 +2401,7 @@
       ctx.globalAlpha = (1 - index / bead.trail.length) * 0.1;
       ctx.beginPath();
       ctx.arc(point.x, point.y, bead.radius * (1 - index * 0.1), 0, TAU);
-      ctx.fillStyle = COLORS[bead.color];
+      ctx.fillStyle = paletteColor(bead.color);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
@@ -2057,9 +2415,9 @@
       bead.radius
     );
     gradient.addColorStop(0, "#fff");
-    gradient.addColorStop(0.22, COLORS[bead.color]);
-    gradient.addColorStop(1, shade(COLORS[bead.color], -26));
-    ctx.shadowColor = `${COLORS[bead.color]}88`;
+    gradient.addColorStop(0.22, paletteColor(bead.color));
+    gradient.addColorStop(1, shade(paletteColor(bead.color), -26));
+    ctx.shadowColor = `${paletteColor(bead.color)}88`;
     ctx.shadowBlur = 9;
     ctx.beginPath();
     ctx.arc(bead.x, bead.y, bead.radius, 0, TAU);
@@ -2082,10 +2440,10 @@
       const y = toWorldY(hazard.y);
       const radius = hazard.radius * state.width;
       const gradient = ctx.createRadialGradient(x - radius * 0.3, y - radius * 0.35, 2, x, y, radius);
-      gradient.addColorStop(0, "#ffbfd7");
-      gradient.addColorStop(0.65, "#f06798");
-      gradient.addColorStop(1, "#bd3970");
-      ctx.shadowColor = "rgba(221,57,113,.3)";
+      gradient.addColorStop(0, activeSkin().hazard[0]);
+      gradient.addColorStop(0.65, activeSkin().hazard[1]);
+      gradient.addColorStop(1, activeSkin().hazard[2]);
+      ctx.shadowColor = hexToRgba(activeSkin().hazard[1], 0.3);
       ctx.shadowBlur = 16;
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, TAU);
@@ -2116,8 +2474,8 @@
       roundedRect(x, y, width, height, 24);
       ctx.clip();
       const gradient = ctx.createLinearGradient(x, y + height, x, y);
-      gradient.addColorStop(0, `rgba(86,214,207,${0.05 + breath * 0.08})`);
-      gradient.addColorStop(1, `rgba(123,103,235,${0.06 + breath * 0.1})`);
+      gradient.addColorStop(0, hexToRgba(activeSkin().wind[0], 0.05 + breath * 0.08));
+      gradient.addColorStop(1, hexToRgba(activeSkin().wind[1], 0.06 + breath * 0.1));
       ctx.fillStyle = gradient;
       ctx.fillRect(x, y, width, height);
       ctx.translate(x + width / 2, y + height / 2);
@@ -2127,7 +2485,7 @@
           const travel = ((now * (0.035 + breath * 0.035) + column * 47 + row * 19) % (width + 70)) - width / 2;
           const py = row * Math.min(24, height / 5);
           ctx.globalAlpha = 0.18 + breath * 0.35;
-          ctx.strokeStyle = row % 2 ? "#7b67eb" : "#55d5cf";
+          ctx.strokeStyle = row % 2 ? activeSkin().wind[1] : activeSkin().wind[0];
           ctx.lineWidth = 2;
           ctx.beginPath();
           ctx.moveTo(travel - 11, py);
@@ -2151,7 +2509,7 @@
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(performance.now() * 0.0015 * (portal.color ? -1 : 1));
-      ctx.strokeStyle = portal.color ? "#55d5cf" : "#8b74ed";
+      ctx.strokeStyle = portal.color ? activeSkin().wind[0] : activeSkin().accent;
       ctx.lineWidth = 5;
       ctx.shadowColor = ctx.strokeStyle;
       ctx.shadowBlur = 14;
@@ -2169,7 +2527,7 @@
       const y = toWorldY(gate.y);
       const leftEdge = toWorldX(0.5 - gate.gap / 2);
       const rightEdge = toWorldX(0.5 + gate.gap / 2);
-      ctx.fillStyle = "rgba(112,184,186,.48)";
+      ctx.fillStyle = hexToRgba(activeSkin().wind[0], 0.48);
       roundedRect(0, y - 5, leftEdge, 10, 5);
       ctx.fill();
       roundedRect(rightEdge, y - 5, state.width - rightEdge, 10, 5);
@@ -2189,14 +2547,14 @@
       ctx.shadowColor = "rgba(76,143,151,.22)";
       ctx.shadowBlur = 8;
       roundedRect(-length / 2, -5, length, 10, 6);
-      ctx.fillStyle = "rgba(108,191,191,.72)";
+      ctx.fillStyle = hexToRgba(activeSkin().wind[0], 0.72);
       ctx.fill();
       ctx.restore();
       ctx.beginPath();
       ctx.arc(cx, cy, 9, 0, TAU);
       ctx.fillStyle = "#fff";
       ctx.fill();
-      ctx.strokeStyle = "#76c5c4";
+      ctx.strokeStyle = activeSkin().wind[0];
       ctx.stroke();
     }
 
@@ -2210,10 +2568,10 @@
       ctx.translate(x, y);
       ctx.scale(stretch, squash);
       const gradient = ctx.createRadialGradient(-radius * 0.3, -radius * 0.36, 2, 0, 0, radius);
-      gradient.addColorStop(0, "#fff7c7");
-      gradient.addColorStop(0.35, "#ffc96e");
-      gradient.addColorStop(1, "#f28f61");
-      ctx.shadowColor = "rgba(232,130,72,.3)";
+      gradient.addColorStop(0, activeSkin().bumper[0]);
+      gradient.addColorStop(0.35, activeSkin().bumper[1]);
+      gradient.addColorStop(1, activeSkin().bumper[2]);
+      ctx.shadowColor = hexToRgba(activeSkin().bumper[2], 0.3);
       ctx.shadowBlur = 16;
       ctx.beginPath();
       ctx.arc(0, 0, radius, 0, TAU);
@@ -2242,10 +2600,10 @@
       ctx.scale(pulse, pulse);
       ctx.rotate(Math.PI / 4);
       const gradient = ctx.createLinearGradient(-radius, -radius, radius, radius);
-      gradient.addColorStop(0, "#e8dcff");
-      gradient.addColorStop(0.45, "#a987ff");
-      gradient.addColorStop(1, "#5ddbd2");
-      ctx.shadowColor = "rgba(114,83,220,.35)";
+      gradient.addColorStop(0, activeSkin().splitter[0]);
+      gradient.addColorStop(0.45, activeSkin().splitter[1]);
+      gradient.addColorStop(1, activeSkin().splitter[2]);
+      ctx.shadowColor = hexToRgba(activeSkin().splitter[1], 0.35);
       ctx.shadowBlur = 18;
       roundedRect(-radius * 0.58, -radius * 0.58, radius * 1.16, radius * 1.16, radius * 0.2);
       ctx.fillStyle = gradient;
@@ -2264,6 +2622,7 @@
   }
 
   function drawSingleMagnet(now, magnet, mirrored = false) {
+    const skin = activeSkin();
     const activeScale = magnet.active ? 1.04 + Math.sin(magnet.pulse) * 0.02 : 1;
     ctx.save();
     ctx.translate(magnet.x, magnet.y);
@@ -2275,19 +2634,19 @@
         ctx.globalAlpha = Math.max(0, 0.18 - index * 0.04);
         ctx.beginPath();
         ctx.arc(0, 0, radius, Math.PI * 1.12, Math.PI * 1.88);
-        ctx.strokeStyle = state.magnet.polarity > 0 ? "#745fe4" : "#e85c91";
+        ctx.strokeStyle = state.magnet.polarity > 0 ? skin.magnet[1] : skin.repulse[1];
         ctx.lineWidth = 2;
         ctx.stroke();
       }
     }
     ctx.globalAlpha = 1;
-    ctx.shadowColor = "rgba(67,49,150,.28)";
+    ctx.shadowColor = hexToRgba(state.magnet.polarity > 0 ? skin.magnet[1] : skin.repulse[1], 0.28);
     ctx.shadowBlur = 15;
     ctx.shadowOffsetY = 7;
     roundedRect(-34, -17, 68, 38, 17);
     const gradient = ctx.createLinearGradient(-34, -17, 34, 21);
-    gradient.addColorStop(0, state.magnet.polarity > 0 ? "#b59cff" : "#ffafd0");
-    gradient.addColorStop(1, state.magnet.polarity > 0 ? "#6a55d7" : "#d84d83");
+    gradient.addColorStop(0, state.magnet.polarity > 0 ? skin.magnet[0] : skin.repulse[0]);
+    gradient.addColorStop(1, state.magnet.polarity > 0 ? skin.magnet[1] : skin.repulse[1]);
     ctx.fillStyle = gradient;
     ctx.fill();
     ctx.shadowBlur = 0;
@@ -2320,7 +2679,7 @@
     ctx.save();
     ctx.setLineDash([5, 7]);
     ctx.lineDashOffset = -state.magnet.pulse * 2;
-    ctx.strokeStyle = "rgba(123,103,235,.42)";
+    ctx.strokeStyle = hexToRgba(activeSkin().accent, 0.42);
     ctx.lineWidth = 2;
     ctx.beginPath();
     if (constraint.type === "horizontal") {
@@ -2353,7 +2712,7 @@
       ctx.globalAlpha = ripple.alpha;
       ctx.beginPath();
       ctx.arc(ripple.x, ripple.y, ripple.radius, 0, TAU);
-      ctx.strokeStyle = "#8f7be9";
+      ctx.strokeStyle = activeSkin().accent;
       ctx.lineWidth = 2;
       ctx.stroke();
     }
